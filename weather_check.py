@@ -86,7 +86,7 @@ def judge_special_weather(weather_data: dict[str, Any]) -> list[str]:
 
     if temp_max - temp_min >= 10:
         issues.append(f"일교차 큼 - 최저 {temp_min}℃ / 최고 {temp_max}℃")
-
+    issues.append("테스트 알림 - Slack 연결 확인용")
     return issues
 
 
