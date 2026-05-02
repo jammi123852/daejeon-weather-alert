@@ -6,7 +6,7 @@ env:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 20 * * *" # Korea time 05:00
+    - cron: "30 23 * * *" # Korea time 08:30:00
 
 permissions:
   contents: read
