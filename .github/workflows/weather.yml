@@ -1,1 +1,39 @@
+name: Daejeon Weather Alert
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * *" # Korea time 05:00
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daejeon-weather-alert
+  cancel-in-progress: true
+
+jobs:
+  weather:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        timeout-minutes: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+        timeout-minutes: 1
+
+      - name: Install dependencies
+        run: pip install --no-cache-dir -r requirements.txt
+        timeout-minutes: 1
+
+      - name: Check Daejeon weather and send Slack alert
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python weather_check.py
+        timeout-minutes: 1
