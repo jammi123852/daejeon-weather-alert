@@ -232,7 +232,9 @@ def main() -> int:
         daily_issues = judge_daily_temperature_issue(weather_data)
 
         if not weather_groups and not daily_issues:
-            print("No special weather issue today.")
+            message = "대전 날씨 확인 완료\n오늘 특이사항 없음"
+            send_slack_message(message)
+            print("No special weather issue today. Slack confirmation sent.")
             return 0
 
         message = build_slack_message(weather_groups, daily_issues)
